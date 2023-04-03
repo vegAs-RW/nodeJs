@@ -25,7 +25,7 @@ const filteredData = dataArray.filter(row => parseInt(row[0]) > 17);
 
 // 3/ Recherchez dans le tableau l'étudiant qui a eu la meilleur node.
 
-let bestNote = -Infinity;
+let bestNote = 0;
 let bestStudent;
 
 dataArray.forEach(row => {
