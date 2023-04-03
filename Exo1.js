@@ -13,9 +13,11 @@ process.stdin.on('data', (input) => {
     }
     if (input == num) {
         console.log(`Correct, vous avez trouvé en ${nbTry}`);
+        process.exit(0);
     }
     if (nbTry == 10) {
         console.log("Perdu");
+        process.exit(0);
     }
-    process.exit(0);
+    
 })
