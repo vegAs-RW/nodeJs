@@ -1,13 +1,13 @@
 const fs = require('fs');
 
 // 1/ Méthode asynchrone
-fs.readFile('Exo2.txt', 'utf8', (err, data) => {
+/*fs.readFile('Exo2.txt', 'utf8', (err, data) => {
     if (err) {
         console.error(err);
         return
     }
     console.log(data);
-})
+})*/
 
 // 1bis/ Méthode synchrone
 try {
@@ -43,8 +43,8 @@ const students = [];
 
 dataArray.forEach(row => {
     const note = parseInt(row[0]);
-    const name = row[1].toUpperCase(); 
-    const address = row[2].toUpperCase();
+    const name = row[1]; 
+    const address = row[2];
     const student = { name, address, note };
     students.push(student);
   });
@@ -73,3 +73,10 @@ newStudents.forEach(student => {
     fs.appendFileSync('Exo2.txt', '\n' + student);
 });
 console.log('Nouveaux étudiants ajouter au fichier');
+
+// 7/
+
+const ParisStudents = students.filter(student => student.address === 'Paris')
+
+console.log(ParisStudents);
+fs.writeFileSync('Exo2_1.txt', ParisStudents, err)
