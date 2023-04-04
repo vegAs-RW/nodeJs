@@ -12,11 +12,13 @@ rl.setPrompt('Entrez un étudiant > ');
 rl.prompt()
 
 rl.on('line', function(line){
-    if (students.includes(line)) {
-        console.log(`Bravo, ${line} est dans la liste d'étudiants.`);
+    const cleanLine = line.toLowerCase().replace(/\s/g, '');
+    const cleanArray = students.map(student => student.toLowerCase().replace(/\s/g, ''))
+    if (cleanArray.includes(cleanLine)) {
+        console.log(`Bravo, ${cleanLine} est dans la liste d'étudiants.`);
         rl.close()
     } else {
-        console.log(`${line} n'est pas dans la liste d'étudiants. Réessayez.`);
+        console.log(`${cleanLine} n'est pas dans la liste d'étudiants. Réessayez.`);
         rl.prompt();
     }
     
