@@ -19,7 +19,7 @@ rl.on("line", (input) => {
     const student = students.find((student) => student.name.toLowerCase() === name);
     if (student) {
       const moyenne = student.notes.reduce((a, b) => a + b) / student.notes.length;
-      console.log(`La moyenne de ${student.name} est de : ${moyenne}`);
+      console.log(`La moyenne de ${student.name.toUpperCase()} est de : ${moyenne}`);
     } else {
       console.log(`L'étudiant '${input}' n'a pas été trouvé. Réessayer`);
     }
