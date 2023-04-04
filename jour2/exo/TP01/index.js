@@ -7,7 +7,7 @@ const rl = readline.createInterface({
   output: process.stdout,
 });
 
-rl.setPrompt("Entrez le nom de l'étudiant (ou 'exit' pour quitter) > ");
+rl.setPrompt("Entrez le nom de l'étudiant ou 'exit' pour quitter > ");
 rl.prompt();
 
 rl.on("line", (input) => {
