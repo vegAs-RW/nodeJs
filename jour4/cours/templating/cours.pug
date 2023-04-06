@@ -1,0 +1,103 @@
+nav 
+    ul 
+        li 
+            a(href='/home') Home
+        li 
+            a(href='/contact') Contact
+        li 
+            a(href='/user') User
+
+
+nav: ul 
+    li: a(href='/home') Home
+    li: a(href='/contact') Contact
+    li: a(href='/user') User
+
+input(type='radio' name='gender' value='Male')
+
+input(
+    type='radio'
+    name='gender'
+    value='Male'
+)
+
+main#container  
+    article     
+        .article-inner //- créer une div avec une class 'article-inner'
+            p. //- Recupere un bloc de text sur plusiseur ligne
+                Lorem ipsum 
+                dkdikdk 
+                lolodd
+
+p 
+    Ceci est un texte <strong> en gras </strong>
+
+p 
+    Un nouveau texte 
+        strong en gras 
+
+div 
+    p Je suis dans le paragraphe 
+    | Je suis en dehors du paragraphe
+
+h1 Hello #{name}
+p Vous avez #{age} et êtes #{gender}
+
+h1 Hello #{name}
+p Votre age :
+    output=  age 
+select
+    option(value=gender)=gender
+
+article
+    - const {title, author, date}  = post 
+    h1= title 
+    p written by #{author}
+    time(dateTime=date.toIsoString()) = date.toLocalDateString()
+
+article
+    - 
+        const {title, author, date}  = post; 
+        const ISODate = date.toIsoString();
+        const formatedDate = date.toLocalDateString();
+    h1= title 
+    p written by #{author}
+    time(dateTime=ISODate) = formatedDate
+
+
+input(type='text' id='message')
+p Hello <span id='messageValue'></span>
+
+script.
+    const messageEl = document.getElementById('message')
+    const span = document.getElementById('messageValue')
+    messageEl.oninput = function(e) {
+        span.textContent = e.target.value
+    }
+
+if results  
+    if results.length > 1
+        p Il y'a #{result.length} resultats de recherche 
+    else if results.length === 1
+        p Il y'a un unique resultat 
+    else 
+        p Aucun resultat 
+else 
+    p Aucune recherche effectué
+
+unless user.logged  
+    p  Veuillez vous connecté
+
+if !user.logged
+    p Veuillez vous connecté
+
+case user.gender 
+    when 'M'
+        p HOmme 
+    when 'F'
+        p Femme 
+    default 
+        p 'Autre'
+
+<!-- gttgtg -->
+//-  dfgdd
