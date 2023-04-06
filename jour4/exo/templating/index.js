@@ -6,7 +6,10 @@ const user = {
 
 // Render
 pug.renderFile('template.pug' ,{user}, (err, data) => {
-    if (err) throw err
+    if (err) {
+        res.writeHead(500, {'content-type' : 'text/plain'});
+        res.end(err.message)
+    }
     console.log(data);
 })
 
@@ -14,3 +17,11 @@ pug.renderFile('template.pug' ,{user}, (err, data) => {
 /*const compileTemplate = pug.compileFile('template.pug')
 const result = compileTemplate({user})
 console.log(result);*/
+try {
+    const compileTemplate = pug.compileFile('template.pug')
+const result = compileTemplate({user})
+console.log(result);
+} catch (err) {
+    res.writeHead(500, {'content-type' : 'text/plain'});
+    res.end(err.message)
+}
