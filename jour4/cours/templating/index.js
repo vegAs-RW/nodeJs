@@ -28,7 +28,7 @@ else
 })*/
 
 // Avec fichier externe
-pug.renderFile('template.pug', {age : 19}, (err, data) => {
+/*pug.renderFile('template.pug', {age : 19}, (err, data) => {
     if (err) throw err
     console.log(data);
 })
@@ -39,5 +39,18 @@ try {
 } catch (err){
     res.writeHead(500, {'content-type' : 'text/plain'});
     res.end(err.message)
+}*/
+
+// Syntaxe de pug
+// /!\ Attention a l'indentation
+
+const compileTemplate2 = pug.compileFile('test.pug');
+const data = {
+    name : 'kevin',
+    age : 18,
+    gender: 'M'
 }
+
+console.log(compileTemplate2(data))
+
 
