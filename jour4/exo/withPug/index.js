@@ -14,6 +14,10 @@ const loggedUser = {
     isAdmin: true
 };
 
+// Format the last name
+const upperName = loggedUser.name.last.toUpperCase()
+
+// Format the date
 const getDate = (date) =>{
     const day = date.getDate().toString().padStart(2, '0');
     const month = (date.getMonth() + 1).toString().padStart(2, '0');
@@ -24,11 +28,10 @@ const newDate = loggedUser.birthdate
 const formattedDate = getDate(newDate)
 
 
-pug.renderFile('template.pug' ,{pretty: true, loggedUser, formattedDate},  (err, data) => {
+pug.renderFile('template.pug' ,{pretty: true, loggedUser, formattedDate, upperName},  (err, data) => {
     if (err) {
         res.writeHead(500, {'content-type' : 'text/plain'});
         res.end(err.message)
     }
     console.log(data);
 })
-
