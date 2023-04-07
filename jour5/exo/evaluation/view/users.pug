@@ -1,0 +1,13 @@
+html
+  head
+    meta(charset="UTF-8")
+    title Utilisateurs
+    link(rel="stylesheet", href="/css/style.css")
+  body
+    h1(class="title") Utilisateurs
+    
+    ul(class="list container")
+      each student in students
+        li #{student.name} Né le : #{formatDate(student.birth)}
+    h2
+        a(href="/") Revenir à l'accueil
