@@ -7,7 +7,9 @@ html
     h1(class="title") Utilisateurs
     
     ul(class="list container")
-      each student in students
-        li #{student.name} Né le : #{formatDate(student.birth)}
+      each student, index in students
+        li 
+            | #{student.name} Né le : #{formatDate(student.birth)} 
+            a(href=`/delete/${index}`) [X]
     h2
         a(href="/") Revenir à l'accueil

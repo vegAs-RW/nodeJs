@@ -67,6 +67,7 @@ const server = http.createServer((req, res) => {
         }
       }
     );
+    // Page utilisateurs
   } else if (pathname === "/users") {
     const html = pug.renderFile("./view/users.pug", { students, formatDate });
     res.setHeader("Content-Type", "text/html");
@@ -74,20 +75,31 @@ const server = http.createServer((req, res) => {
   } else if (pathname.startsWith("/users/") && req.method === "POST") {
     const index = parseInt(pathname.split("/")[2]);
     students.splice(index, 1);
-    res.statusCode = 302;
-    res.setHeader("Location", "/users");
+    res.writeHead(302, { Location: "/users" });
     res.end();
+    // route pour suppression user
+  } else if (pathname.startsWith("/delete")) {
+    const userId = parseInt(pathname.split("/")[2]);
+    if (userId >= 0 && userId < students.length) {
+      students.splice(userId, 1);
+      res.writeHead(302, { Location: "/users" });
+      res.end();
+    } else {
+      res.writeHead(404, { "Content-Type": "text/html" });
+      res.end("<h1>Utilisateur non trouvé</h1>");
+    }
+    // gestion des erreurs
   } else {
     res.statusCode = 404;
     res.end("Not found");
   }
 });
 
-if (process.env.APP_ENV === 'dev') {
-    const port = process.env.APP_PORT //|| 8000;
-const localhost = process.env.APP_LOCALHOST //|| "localhost";
+if (process.env.APP_ENV === "dev") {
+  const port = process.env.APP_PORT; //|| 8000;
+  const localhost = process.env.APP_LOCALHOST; //|| "localhost";
 
-server.listen(port, () => {
-  console.log(`Server listening on http://${localhost}:${port}`);
-});
+  server.listen(port, () => {
+    console.log(`Server listening on http://${localhost}:${port}`);
+  });
 }
