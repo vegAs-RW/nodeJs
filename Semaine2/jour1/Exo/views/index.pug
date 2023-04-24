@@ -1,0 +1,26 @@
+doctype html
+html
+  head
+    title Chat App
+    link(rel='stylesheet', href='/style/style.css')
+  body
+    header
+      h1 Chat room with Socket.io
+    main
+      aside
+        h2 Channels
+        ul#channel-list
+          li.active-channel
+            a(href='#') General
+          li
+            a(href='#') Gaming 
+          li
+            a(href='#') Random 
+      section#chat
+        form#message-form
+          input(type='text', placeholder='Tapez votre message ici ...')
+          button(type='submit') Envoyer
+        div#messages
+        
+    script(src='/socket.io/socket.io.js')
+    script(src='/scripts/app.js')
