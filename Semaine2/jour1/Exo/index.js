@@ -1,23 +1,47 @@
 const express = require('express');
+const http = require('http');
+const socketio = require('socket.io');
+const path = require('path');
+
 const app = express();
-const port = 9000
-const http = require('http')
-const server = http.Server(app)
-const io = require('socket.io')(server)
+const server = http.createServer(app);
 
-app.use(express.static('public'));
-
+app.use(express.static(path.join(__dirname, 'public')));
 app.set('view engine', 'pug');
-app.use(express.static('views'));
+app.set('views', path.join(__dirname, 'views'));
 
 app.get('/', (req, res) => {
-    res.render('index')
-})
+  res.render('index');
+});
+
+const io = socketio(server);
+
+let users = [];
 
 io.on('connection', (socket) => {
-    console.log('Client', socket.id, 'is connected via WebSockets');
-})
+  console.log('Nouvelle connexion');
 
-server.listen(port, () => {
-    console.log(`server is running on port ${port}` );
-})
+  socket.on('new user', (username) => {
+    socket.username = username;
+    users.push(username);
+    console.log(`Salut ${username}, commence a discuter`);
+    io.emit('users', users);
+  });
+
+  socket.on('chat message', (message) => {
+    io.emit('chat message', { username: socket.username, message });
+  });
+
+  socket.on('disconnect', () => {
+    console.log(`${socket.username} c'est déco`);
+    users = users.filter((user) => user !== socket.username);
+    io.emit('users', users);
+  });
+});
+
+
+const PORT = 9000;
+server.listen(PORT, () => {
+  console.log(`Le serveur écoute sur le port ${PORT}`);
+});
+

@@ -33,7 +33,16 @@
     display: flex;
   }
   
-  aside {
+  .left-sidebar {
+    float: left;
+    width: 25%;
+    background-color: #f2f2f2;
+    border: 1px solid #DDD;
+    border-radius: 5px;
+    padding: 20px;
+  }
+  .right-sidebar {
+    float: right;
     width: 25%;
     background-color: #f2f2f2;
     border: 1px solid #DDD;
@@ -61,6 +70,7 @@
     margin-bottom: 10px;
     text-decoration: none;
     color: #1A1A1A;
+    list-style: none;
   }
   
   li.active-channel a {
@@ -104,13 +114,14 @@
     display: flex;
   }
   
-  #message-form input[type="text"] {
+  #message-input {
     flex: 1;
     margin-right: 10px;
     padding: 5px;
     border: 1px solid #DDD;
     border-radius: 5px;
     font-size: 16px;
+    width: 85%;
   }
   
   #message-form button[type="submit"] {

@@ -5,22 +5,26 @@ html
     link(rel='stylesheet', href='/style/style.css')
   body
     header
-      h1 Chat room with Socket.io
+        h1 Chat room with Socket.io
     main
-      aside
-        h2 Channels
-        ul#channel-list
-          li.active-channel
-            a(href='#') General
-          li
-            a(href='#') Gaming 
-          li
-            a(href='#') Random 
-      section#chat
-        form#message-form
-          input(type='text', placeholder='Tapez votre message ici ...')
-          button(type='submit') Envoyer
-        div#messages
+        aside.left-sidebar
+            h2 Channels
+            ul#channel-list
+            li.active-channel
+                a.channel-link(href='#') General
+            li
+                a.channel-link(href='#') Gaming 
+            li
+                a.channel-link(href='#') Random
+        section#chat
+            form#message-form
+                input#message-input(type='text', placeholder='Tapez votre message ici ...')
+                button(type='submit') Envoyer
+            div#messages
+                ul#messages-list
+        aside.right-sidebar
+            h2 Users
+            ul#user-list
         
     script(src='/socket.io/socket.io.js')
     script(src='/scripts/app.js')
