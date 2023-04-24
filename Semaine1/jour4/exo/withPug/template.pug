@@ -1,0 +1,10 @@
+.user-card  
+    h4 #{loggedUser.name.first} #{upperName} <small>(#{loggedUser.age} ans)</small>
+    p Né le #{formattedDate}
+    p Vit à 
+        strong #{loggedUser.location.city}, #{loggedUser.location.zipcode}
+    if loggedUser.isAdmin === true
+        span(class='badge-admin') Est admin 
+    else 
+        span(class='badge-admin') N'est pas admin
+        

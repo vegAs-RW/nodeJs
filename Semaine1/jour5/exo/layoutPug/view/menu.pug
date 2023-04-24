@@ -1,0 +1,6 @@
+- const {path, title, isActive} = menuItems 
+    header
+        nav: ul 
+            each item in menuItems 
+                li(class =item.isActive ? 'nav-activ' :'' ) 
+                    a(href=item.path) #{item.title}
