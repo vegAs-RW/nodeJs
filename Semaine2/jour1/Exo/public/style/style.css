@@ -138,3 +138,22 @@
   #message-form button[type="submit"]:hover {
     background-color: #222;
   }
+
+  .italic-1rem {
+    font-style: italic;
+    font-size: 0.7rem;
+    padding: 3px 0;
+  }
+  .bold-2rem {
+    font-weight: bold;
+    font-size:1.1rem
+  }
+  .msg {
+    border-bottom: 0.5px solid rgb(48, 46, 46);
+    padding-bottom: 5px;
+  }
+
+  .header-msg {
+    display:flex;
+    justify-content: space-between;
+  }

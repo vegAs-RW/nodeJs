@@ -20,7 +20,7 @@ channels.forEach((link) => {
   });
 });
 
-const username = prompt("What is your username?");
+const username = prompt("What is your username?") || 'Batman';
 
 socket.emit("new user", username);
 
@@ -34,9 +34,15 @@ socket.on("users", (users) => {
 });
 
 messageForm.addEventListener("submit", (event) => {
+  const date = new Date();
+  const formattedDate = date.toLocaleString("fr-FR");
   event.preventDefault();
   const message = messageInput.value;
-  socket.emit("chat message", { message, channel: activeChannel });
+  socket.emit("chat message", {
+    message,
+    channel: activeChannel,
+    formattedDate,
+  });
   messageInput.value = "";
 });
 
@@ -47,8 +53,10 @@ socket.on("chat message", (data) => {
   messages[data.message.channel].push(data);
   //console.log(messages[data.message.channel]);
   if (data.message.channel === activeChannel) {
-    const messageItem = document.createElement("li");
-    messageItem.innerHTML = `<strong>${data.username}</strong>: ${data.message.message}`;
+    console.log(data);
+    const messageItem = document.createElement("li")
+    messageItem.className = "msg"
+    messageItem.innerHTML = `<div class=header-msg><span class=bold-2rem>${data.username}</span> <span class=italic-1rem>${data.message.formattedDate}</span></div><div>${data.message.message}</div>`;
     messageList.appendChild(messageItem);
   }
 });
@@ -67,7 +75,7 @@ function switchChannel(channel) {
   if (messages[channel]) {
     messages[channel].forEach((data) => {
       const messageItem = document.createElement("li");
-      messageItem.innerHTML = `<strong>${data.username}</strong>: ${data.message.message}`;
+      messageItem.innerHTML = `<div class=header-msg><span class=bold-2rem>${data.username}</span> <span class=italic-1rem>${data.message.formattedDate}</span></div><div>${data.message.message}</div>`;
       messageList.appendChild(messageItem);
     });
   }
@@ -106,7 +114,7 @@ messageInput.addEventListener("keypress", () => {
 // ecriture
 socket.on("notifyWritting", (username) => {
   const writingDiv = document.getElementById("writing");
-  writingDiv.textContent = username + " est en train d'écrire ...";
+  writingDiv.innerHTML = `<span class=italic-1rem>${username} est en train d'écrire ...</span>`;
   setTimeout(() => {
     writingDiv.textContent = "";
   }, 3000);
