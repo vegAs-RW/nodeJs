@@ -11,17 +11,18 @@ html
             h2 Channels
             ul#channel-list
             li.active-channel
-                a.channel-link(href='#') General
+                a.channel-link(href='/', data-channel='general') General
             li
-                a.channel-link(href='#') Gaming 
+                a.channel-link(href='#', data-channel='gaming') Gaming 
             li
-                a.channel-link(href='#') Random
+                a.channel-link(href='/random-channel', data-channel='random') Random
         section#chat
             form#message-form
                 input#message-input(type='text', placeholder='Tapez votre message ici ...')
                 button(type='submit') Envoyer
             div#messages
                 ul#messages-list
+            div#writing
         aside.right-sidebar
             h2 Users
             ul#user-list
