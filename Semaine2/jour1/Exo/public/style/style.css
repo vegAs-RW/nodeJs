@@ -112,6 +112,7 @@
   
   #message-form {
     display: flex;
+    margin-bottom: 20px;
   }
   
   #message-input {

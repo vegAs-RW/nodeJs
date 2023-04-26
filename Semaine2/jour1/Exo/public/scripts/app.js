@@ -8,19 +8,7 @@ const channelList = document.getElementById("channel-list");
 const channels = document.querySelectorAll(".channel-link");
 
 let activeChannel = "general";
-
-// Function to switch channels
-function switchChannel(channel) {
-  activeChannel = channel;
-  channels.forEach((c) => c.parentElement.classList.remove("active-channel"));
-  const selectedChannel = document.querySelector(
-    `a[data-channel="${channel}"]`
-  );
-  selectedChannel.parentElement.classList.add("active-channel");
-  messageList.innerHTML = "";
-  const channelHeading = document.querySelector("h1");
-  channelHeading.textContent = `#${channel} channel`;
-}
+const messages = {};
 
 // Switch to the 'general' channel by default
 switchChannel("general");
@@ -48,19 +36,42 @@ socket.on("users", (users) => {
 messageForm.addEventListener("submit", (event) => {
   event.preventDefault();
   const message = messageInput.value;
-  //console.log( { message, channel: activeChannel });
   socket.emit("chat message", { message, channel: activeChannel });
   messageInput.value = "";
 });
 
 socket.on("chat message", (data) => {
-  console.log(data);
+  if (!messages[data.message.channel]) {
+    messages[data.message.channel] = [];
+  }
+  messages[data.message.channel].push(data);
+  //console.log(messages[data.message.channel]);
   if (data.message.channel === activeChannel) {
     const messageItem = document.createElement("li");
     messageItem.innerHTML = `<strong>${data.username}</strong>: ${data.message.message}`;
     messageList.appendChild(messageItem);
   }
 });
+
+// Function to switch channels
+function switchChannel(channel) {
+  activeChannel = channel;
+  channels.forEach((c) => c.parentElement.classList.remove("active-channel"));
+  const selectedChannel = document.querySelector(
+    `a[data-channel="${channel}"]`
+  );
+  selectedChannel.parentElement.classList.add("active-channel");
+  messageList.innerHTML = "";
+  const channelHeading = document.querySelector("h1");
+  channelHeading.textContent = `#${channel} channel`;
+  if (messages[channel]) {
+    messages[channel].forEach((data) => {
+      const messageItem = document.createElement("li");
+      messageItem.innerHTML = `<strong>${data.username}</strong>: ${data.message.message}`;
+      messageList.appendChild(messageItem);
+    });
+  }
+}
 
 //Ajouter un gestionnaire d'événements pour chaque lien de channel
 channels.forEach((channel) => {
@@ -73,7 +84,7 @@ channels.forEach((channel) => {
 
     // Mettre à jour la valeur de currentChannel
     currentChannel = newChannel;
-    console.log(currentChannel);
+    //console.log(currentChannel);
     // Mettre en surbrillance le lien de channel actif
     const activeChannel = document.querySelector(".active-channel");
     activeChannel.classList.remove("active-channel");
@@ -95,7 +106,7 @@ messageInput.addEventListener("keypress", () => {
 // ecriture
 socket.on("notifyWritting", (username) => {
   const writingDiv = document.getElementById("writing");
-  writingDiv.textContent = username + " is typing...";
+  writingDiv.textContent = username + " est en train d'écrire ...";
   setTimeout(() => {
     writingDiv.textContent = "";
   }, 3000);
