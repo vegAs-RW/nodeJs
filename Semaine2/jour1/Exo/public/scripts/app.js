@@ -106,7 +106,6 @@ emojiBar.addEventListener("click", (event) => {
 socket.emit("new user", username);
 
 socket.on("users", (users) => {
-    console.log(users);
   userList.innerHTML = "";
   users.forEach((user) => {
     const userItem = document.createElement("li");
@@ -128,7 +127,6 @@ socket.on("chat message", (data) => {
     messages[data.message.channel] = [];
   }
   messages[data.message.channel].push(data);
-  //console.log(messages[data.message.channel]);
   if (data.message.channel === activeChannel) {
     console.log(data);
     const messageItem = document.createElement("li");
