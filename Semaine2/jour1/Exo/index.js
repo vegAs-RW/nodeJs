@@ -26,6 +26,7 @@ io.on("connection", (socket) => {
     users.push(username);
     console.log(`Salut ${username}, commence a discuter`);
     io.emit("users", users);
+    socket.broadcast.emit('new user', username);
   });
 
   socket.on("chat message", (message) => {

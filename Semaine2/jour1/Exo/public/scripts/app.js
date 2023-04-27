@@ -106,6 +106,7 @@ emojiBar.addEventListener("click", (event) => {
 socket.emit("new user", username);
 
 socket.on("users", (users) => {
+    console.log(users);
   userList.innerHTML = "";
   users.forEach((user) => {
     const userItem = document.createElement("li");
@@ -113,6 +114,14 @@ socket.on("users", (users) => {
     userList.appendChild(userItem);
   });
 });
+
+socket.on('new user', (username) => {
+    const messageItem = document.createElement("li");
+    messageItem.className = "msg";
+    messageItem.innerHTML = `<div class=header-msg><span class=bold-2rem>Server Bot</span></div><div class=italic-1rem>${username} à rejoint la discussion</div>`;
+    messageList.appendChild(messageItem);
+  });
+
 
 socket.on("chat message", (data) => {
   if (!messages[data.message.channel]) {
