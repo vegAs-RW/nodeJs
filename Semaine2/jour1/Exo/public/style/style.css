@@ -97,7 +97,7 @@
   
   #message-form {
     display: flex;
-    margin-bottom: 20px;
+    margin-bottom: 4px;
   }
   
   #message-input {
@@ -138,3 +138,17 @@
     display:flex;
     justify-content: space-between;
   }
+  img.emoji {
+    height: 1.5em;
+    width: 1.5em;
+    margin: 0 .6px 0 .6px;
+    vertical-align: -0.1em;
+    cursor: pointer
+ }
+
+ #emoji-bar {
+  background-color: #DDD;
+  padding: 2px;
+  width: 77%;
+  border-radius: 5px;
+ }

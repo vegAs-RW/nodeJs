@@ -3,6 +3,7 @@ html
   head
     title Chat App
     link(rel='stylesheet', href='/style/style.css')
+    script(src="https://unpkg.com/twemoji@latest/dist/twemoji.min.js" crossorigin="anonymous")
   body
     header
         h1 Chat room with Socket.io
@@ -20,6 +21,7 @@ html
             form#message-form
                 input#message-input(type='text', placeholder='Tapez votre message ici ...')
                 button(type='submit') Envoyer
+            div#emoji-bar
             div#messages
                 ul#messages-list
             div#writing

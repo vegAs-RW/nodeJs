@@ -17,9 +17,7 @@ const messages = {};
 function switchChannel(channel) {
   activeChannel = channel;
   channels.forEach((c) => c.parentElement.classList.remove("active-channel"));
-  const selectedChannel = document.querySelector(
-    `a[data-channel="${channel}"]`
-  );
+  const selectedChannel = document.querySelector(`a[data-channel="${channel}"]`);
   selectedChannel.parentElement.classList.add("active-channel");
   messageList.innerHTML = "";
   const channelHeading = document.querySelector("h1");
@@ -80,6 +78,30 @@ channels.forEach((channel) => {
 messageInput.addEventListener("keypress", () => {
   socket.emit("notifyWritting", { user: socket.username });
 });
+
+twemoji.parse(document.body);
+// Get emoji bar and add emojis
+const emojiBar = document.getElementById("emoji-bar");
+emojiBar.innerHTML += `
+    <img class="emoji" src="${twemoji.base}72x72/1f603.png" alt="😃">
+    <img class="emoji" src="${twemoji.base}72x72/1f923.png" alt="🤣">
+    <img class="emoji" src="${twemoji.base}72x72/1f970.png" alt="🥰">
+    <img class="emoji" src="${twemoji.base}72x72/1f61d.png" alt="😝">
+    <img class="emoji" src="${twemoji.base}72x72/1f972.png" alt="🥲">
+    <img class="emoji" src="${twemoji.base}72x72/1f621.png" alt="😡">
+    <img class="emoji" src="${twemoji.base}72x72/1f629.png" alt="😩">
+    <img class="emoji" src="${twemoji.base}72x72/1f922.png" alt="🤢">
+    <img class="emoji" src="${twemoji.base}72x72/1f643.png" alt="🙃">
+    <img class="emoji" src="${twemoji.base}72x72/1f4af.png" alt="💯">
+    `;
+
+// Event for emojis
+emojiBar.addEventListener("click", (event) => {
+    if (event.target.classList.contains("emoji")) {
+      const emoji = event.target.alt;
+      messageInput.value += emoji;
+    }
+  });
 
 socket.emit("new user", username);
 
